@@ -42,6 +42,7 @@ router.post("/", validateListing, wrapAsync(async (req, res, next) => {
     // if(!req.body.listing){
     //     throw new ExpressError(400, "Send valid data for listing")
     // }
+    req.flash("success", "Listing added successfully!")
     let listing = req.body.listing;
     const newListing = new Listing(listing);
     await newListing.save();

@@ -9,6 +9,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listings = require("./routes/listing.js")
 const reviews = require("./routes/review.js")
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const sessionOptions = session({
     secret: "mysecretcode",
@@ -22,6 +23,12 @@ const sessionOptions = session({
 })
 
 app.use(sessionOptions);
+app.use(flash())
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    next();
+})
 
 main()
     .then(req => {

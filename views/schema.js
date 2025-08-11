@@ -5,13 +5,16 @@ const listingSchema = Joi.object({
         title: Joi.string().required(),
         description: Joi.string().required(),
         price: Joi.number().required().min(0),
-        image: Joi.string().allow("", null),
-        loacation: Joi.string().required(),
+        image: Joi.object({
+            filename: Joi.string().allow("", null),
+            url: Joi.string().uri().allow("", null)
+        }).required(),
+        location: Joi.string().required(),
         country: Joi.string().required()
     }).required(),
 })
 
-module.exports = listingSchema;
+module.exports = {listingSchema};
 
 
 module.exports.reviewSchema = Joi.object({
@@ -20,3 +23,4 @@ module.exports.reviewSchema = Joi.object({
         comment: Joi.string().required()
     }).required()
 })
+
