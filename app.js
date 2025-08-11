@@ -8,6 +8,20 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listings = require("./routes/listing.js")
 const reviews = require("./routes/review.js")
+const session = require("express-session");
+
+const sessionOptions = session({
+    secret: "mysecretcode",
+    saveUninitialized: true,
+    resave: false,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
+    }
+})
+
+app.use(sessionOptions);
 
 main()
     .then(req => {
